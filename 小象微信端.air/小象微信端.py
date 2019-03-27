@@ -29,22 +29,24 @@ def create_phone():
 phone = create_phone()
 
 
+url = "http://192.168.4.176:8080/"
+
 
 企业货主 = WebChrome()
 企业货主.implicitly_wait(20)
-企业货主.get("http://192.168.4.182/#/")
+企业货主.get(url)
 
 '''
 个人货主 = WebChrome()
 个人货主.implicitly_wait(20)
-个人货主.get("http://192.168.4.182/#/")
+个人货主.get(url)
 '''
 
 经纪人 = WebChrome()
 经纪人.implicitly_wait(20)
-经纪人.get("http://192.168.4.182/#/")
+经纪人.get(url)
 
 司机 = WebChrome()
 司机.implicitly_wait(20)
-司机.get("http://192.168.4.182/#/")
+司机.get(url)
 
