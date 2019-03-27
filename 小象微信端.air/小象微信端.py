@@ -5,11 +5,14 @@ from airtest.core.api import *
 
 auto_setup(__file__)
 
-from selenium import webdriver
+import random
+from selenium import webdriver 
 from selenium.webdriver.common.keys import Keys
 from airtest_selenium.proxy import WebChrome
+from poco.drivers.android.uiautomation import AndroidUiautomationPoco # 导入安卓驱动环境
+poco = AndroidUiautomationPoco(use_airtest_input=True, screenshot_each_action=False)
 
-import random
+
 def create_phone():
     # 第二位数字
     second = [3, 4, 5, 7, 8][random.randint(0, 4)]
@@ -29,7 +32,8 @@ def create_phone():
 phone = create_phone()
 
 
-url = "http://192.168.4.176:8080/"
+# 访问的端口号
+url = "http://192.168.4.208:8080/"
 
 
 企业货主 = WebChrome()
