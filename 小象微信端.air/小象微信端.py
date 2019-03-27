@@ -8,8 +8,8 @@ auto_setup(__file__)
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from airtest_selenium.proxy import WebChrome
-
 import random
+
 def create_phone():
     # 第二位数字
     second = [3, 4, 5, 7, 8][random.randint(0, 4)]
