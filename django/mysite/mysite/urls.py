@@ -56,7 +56,8 @@ Including another URLconf (包括一个URLconf)
 4. URL在app中处理
     - 如果所以应用URL都集中在项目urls.py中，可能导致文件的臃肿
     - 可以把urls具体功能逐渐分散到每个app中
-        - 从 django.conf.urls 导入 include
+        - 从 django.conf.urls 导入 include 
+            - from django.conf,urls import include
         - 注意此时RE部分的写法
         - 添加include导入
     - 使用方法
