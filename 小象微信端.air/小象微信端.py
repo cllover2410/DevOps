@@ -1,18 +1,21 @@
 # -*- encoding=utf8 -*-
 __author__ = "zhangweiwei"
 
-from airtest.core.api import *
 
 auto_setup(__file__)
 
+
 import random
-from selenium import webdriver 
-from selenium.webdriver.common.keys import Keys
-from airtest_selenium.proxy import WebChrome
-from poco.drivers.android.uiautomation import AndroidUiautomationPoco # 导入安卓驱动环境
-poco = AndroidUiautomationPoco(use_airtest_input=True, screenshot_each_action=False)
+from airtest.core.api import *
+from poco.drivers.android.uiautomation import AndroidUiautomationPoco
+
+poco = AndroidUiautomationPoco()
+poco.device.wake()
+init_device("Android") 
+connect_device("android:127.0.0.1:7555") # 选中设备
 
 
+# 生成手机号
 def create_phone():
     # 第二位数字
     second = [3, 4, 5, 7, 8][random.randint(0, 4)]
@@ -28,30 +31,35 @@ def create_phone():
     suffix = random.randint(9999999,100000000)
     # 拼接手机号
     return "1{}{}{}".format(second, third, suffix)
-# 生成手机号
 phone = create_phone()
 
 
-# 访问的端口号
-url = "http://192.168.4.208:8080/"
 
 
-企业货主 = WebChrome()
-企业货主.implicitly_wait(20)
-企业货主.get(url)
-
-'''
-个人货主 = WebChrome()
-个人货主.implicitly_wait(20)
-个人货主.get(url)
-'''
-
-经纪人 = WebChrome()
-经纪人.implicitly_wait(20)
-经纪人.get(url)
-
-司机 = WebChrome()
-司机.implicitly_wait(20)
-司机.get(url)
 
 
+
+# 登录司机
+home()
+poco(text = '#2 QQ浏览器').click()
+# poco(name = '搜索或输入网址').click()
+# text('http://wx.xiaoxiang56.com')
+# poco(name = '智能语音').click()
+#poco(name = '请输入手机号').click()
+#text(str(18682299065))
+#poco(name = '登录').click()
+#sleep(10) # 输入验证嘛
+
+
+# 登录个人货主
+home()
+poco(text = '#3 QQ浏览器').click()
+
+
+
+# 登录经纪人
+home()
+poco(text = '#1 QQ浏览器').click()
+v = (144, 638)
+touch(v ,times=2)
+touch(Template(r"tpl1554108976745.png", record_pos=(0.003, 0.712), resolution=(576.0, 1024.0)))
