@@ -2,8 +2,7 @@
 __author__ = "zhangweiwei"
 
 
-auto_setup(__file__)
-
+#auto_setup(__file__)
 
 import random
 from airtest.core.api import *
@@ -41,7 +40,6 @@ url = "http://wx.xiaoxiang56.com"
 # 登录经纪人
 touch(Template(r"tpl1554191030281.png", record_pos=(-0.344, -0.449), resolution=(1080, 1920)))
 touch(Template(r"tpl1554192183841.png", record_pos=(0.312, 0.282), resolution=(1080, 1920)))
-touch()
 touch(Template(r"tpl1554174125976.png", rgb=True, target_pos=2, resolution=(1080, 1920)))
 # target_pos 点击点
 # record_pos 录制时在屏幕中的位置 record_pos=(0.329, -0.478)
