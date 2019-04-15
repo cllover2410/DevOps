@@ -1,4 +1,6 @@
 
+#  接口性能测试相比系统性能统测试来说要简单许多，不用考虑业务场景和用户行为，只需模拟调用接口，验证接口的最大处理能力即可。
+
 from locust import HttpLocust, TaskSet, task 
 from random import randint 
  
