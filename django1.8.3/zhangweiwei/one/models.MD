@@ -1,41 +1,35 @@
 # Models 模型   
-- ORM
-    - ObjectRelationMap : 把面向对象思想转换成关系数据库思想.操作上把类等价于表格
-    - 类对应表格
-    - 类中的属性对应表中的字段
-    - 在应用中的models.py文件中定义class
-    - 所有需要使用ORM的class都必须是 models.Model 的子类
-    - class中的所有属性对应表格中的字段
-    - 字段的类型都必须使用 modles.xxx 不能使用python中的类型
-    - 在django种，Models负责跟数据库交互
-- django链接数据库
-    - 自带默认数据库Sqllite3
-        - 关系型数据库
-        - 轻量级
-    - 建议开发用sqlite3， 部署用mysql之类数据库
-        
-        - 切换数据库在settings中进行设置 
-    
-           # django 连接 mysql
-           ```
-            DATABASES = [
-              'default' = {
-                'ENGINE' : 'django.db.backends.mysql',
-                'NAME' : '数据库名',
-                'PASSWORD': '数据库密码',
-                'HOST': '127.0.0.1',
-                'PORT': '3306',
-              }
-            ]
-            ```  
-        - 需要在项目文件下的__init__文件中导入pymysql包
-        
-                ```
-                # 在主项目的__init__文件中
+### ORM （ObjectRelationMap）
+- 把面向对象思想转换成关系数据库思想.操作上把类对应表格
+- 类中的属性对应表中的字段
+- 在应用中的models.py文件中定义class
+- 所有需要使用ORM的class都必须是 models.Model 的子类
+- class中的所有属性对应表格中的字段
+- 字段的类型都必须使用 modles.xxx 不能使用python中的类型
+- 在django种，Models负责跟数据库交互
 
-                import pymysql
-                pymysql.install_as_MySQLdb()
-                ```
+### django链接数据库
+- 自带默认数据库Sqllite3
+    - 关系型数据库
+    - 轻量级
+- 建议开发用sqlite3， 部署用mysql之类数据库
+    - 切换数据库在settings中进行设置 
+
+>django 连接 mysql
+```
+DATABASES = [
+    'default' = {
+        'ENGINE' : 'django.db.backends.mysql',
+        'NAME' : '数据库名',
+        'PASSWORD': '数据库密码',
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
+        }]
+
+- 需要在项目文件下的__init__文件中导入pymysql包,在主项目的__init__文件中
+import pymysql
+pymysql.install_as_MySQLdb()
+```
                 
 # models类的使用
 - 定义和数据库表映射的类
@@ -50,90 +44,92 @@
     4. default : 默认值
     5. unique : 唯一
     6. verbose_name : 假名
+- 所有的类型都是以Field()结尾   
 
-- 数据库的迁移
-    1. 在命令行中,生成数据迁移的语句(生成sql语句)
-
-            ```
-            python3 manage.py makemigrations
-            ```
+## 数据库的迁移
+1. 在命令行中,生成数据迁移的语句(生成sql语句)
+`python3 manage.py makemigrations`
             
-    2. 在命令行中,输入数据迁移的指令
+2. 在命令行中,输入数据迁移的指令
+    ```sh
+    python3 manage.py migrate
+    ```
 
-            ```
-            python3 manage.py migrate
-            ```
-
-            ps : 如果迁移中出现没有变化或者报错,可以尝试强制迁移
-
-            ```
-            # 强制迁移命令
-            python3 manage.py makemigrations 应用名
-            python3 manage.py migrate 应用名
-            ```
-    3. 对于默认数据库， 为了避免出现混乱，如果数据库中没有数据，每次迁移前可以把系统
-    自带的sqlite3数据库删除
+    > 如果迁移中出现没有变化或者报错,可以尝试强制迁移
+    
+    ```sh
+    # 强制迁移命令
+    python3 manage.py makemigrations 应用名
+    python3 manage.py migrate 应用名
+    ```
+3. 对于默认数据库， 为了避免出现混乱，如果数据库中没有数据，每次迁移前可以把系统自带的sqlite3数据库删除
     
     
-- #### 1. 查看数据库中的数据
+# 查看数据库中的数据
 
-```
-1. 启动命令行 : python3 manage.py shell
-ps: 注意点: 对orm的操作分为静态函数和非静态函数两种.静态是指在内存中只有一份内容存在,调用的时候使用 类名. 的方式.如果修改了那么所有使用的人都会受影响.
+1. 启动命令行 : 
+    ```sh
+    python3 manage.py shell
+    ```
+
+    >注意点: 对orm的操作分为静态函数和非静态函数两种.静态是指在内存中只有一份内容存在,调用的时候使用 类名. 的方式.如果修改了那么所有使用的人都会受影响.
+
 2. 在命令行中导入对应的映射类
-	from 应用.models import 类名
-3. 使用 objects 属性操作数据库. objects 是 模型中实际和数据库进行交互的 Manager 类的实例化对象.
-4. 查询命令
-	- 类名.objects.all() 查询数据库表中的所有内容. 返回的结果是一个QuerySet类型,实际上是类列表中装这个一个一个数据对象.
-	- 类名.objects.filter(条件) 
-```
+    ```python
+    from 应用.models import 类名
+    from teacher.models import Teacher
+    ```
 
+3. 使用 objects 属性操作数据库. objects 是 模型中实际和数据库进行交互的 Manager 类的实例化对象.
+
+4. 查询命令
+	- `类名.objects.all()` 查询数据库表中的所有内容. 返回的结果是一个QuerySet类型,实际上是类列表中装这个一个一个数据对象.
+	- 类名.objects.filter(条件)
 ```
 # from 应用名.models import 类名
 from myapp.models import Student
+```
 
-# 查询Student表中的所有数据,得到的是一个QuerySet类型
-Student.objects.all()
+> 查询Student表中的所有数据,得到的是一个QuerySet类型
+`Student.objects.all()`
 
-# 如果要取出所有QuerySet类型中的所有数据对象,需要遍历取出所有的对象,再用对象.属性来查看值
+
+> 如果要取出所有QuerySet类型中的所有数据对象,需要遍历取出所有的对象,再用对象.属性来查看值
+```
 s = Student.object.all()
 for each in s:
 	print(each.name , each.age , each.address , each.phone)
-
-# 如果要进行过滤筛选,使用filter()方法
-Student.objects.filter(age=18)
-
 ```
 
+>如果要进行过滤筛选,使用filter()方法
+`Student.objects.filter(age=18)`
 
-
-#### 2. 添加数据
-
+### 2. 添加数据
 ```
+python3 manage.py shell #命令行中添加数据
 对象 = 类()   # 使用类实例化对象
 对象.属性 = 值  # 给对应的对象的属性赋值
 对象.save()  # 必须要执行保存操作,否则数据没有进入数据库
 ```
 
-python3 manage.py shell 命令行中添加数据
+#### from 应用名.models import 类名
+`from myapp.models import Student`
 
+#### 实例化对象
+`s = Student()`
+
+#### 给对象的属性赋值
 ```
-# from 应用名.models import 类名
-
-from myapp.models import Student
-
-# 实例化对象
-s = Student()
-
-# 给对象的属性赋值
 s.name = '张三'
 s.address = '云南昭通'
 s.phone = '13377886678'
 s.age = 20
-
-# 保存数据
-s.save()
 ```
+
+#### 保存数据
+`s.save()`
+
+
 - 常见查找方法
 
 1. 通用查找格式: 属性名 _ _ (用下面的内容)  =值

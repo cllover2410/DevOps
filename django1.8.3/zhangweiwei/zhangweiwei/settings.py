@@ -23,13 +23,14 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'a2o2-=63o%$0@w2ohecjwm)g=is1un*)3#thiw(z0#xr-0-=^y'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+#安全警告：不要在生产中打开调试的情况下运行！
+DEBUG = True 
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
-
+# 应用程序定义
 INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
@@ -39,6 +40,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 )
 
+# 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -74,6 +76,7 @@ WSGI_APPLICATION = 'zhangweiwei.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
+# 数据库设置
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
