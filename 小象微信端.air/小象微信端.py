@@ -1,18 +1,25 @@
 # -*- encoding=utf8 -*-
 __author__ = "zhangweiwei"
 
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from airtest_selenium.proxy import WebChrome
+driver = WebChrome()
+driver.implicitly_wait(20)
+
 
 #auto_setup(__file__)
 
 import random
 from airtest.core.api import *
-from poco.drivers.android.uiautomation import AndroidUiautomationPoco
+from poco.drivers.android.uiautomation import AndroidUiautomationPoco # 连接安卓 
 
+"""
 poco = AndroidUiautomationPoco()
-poco.device.wake()
+poco.device.wake() # 唤醒设备
+"""
 init_device("Android") 
 #connect_device("android:127.0.0.1:7555") # 选中设备
-
 
 # 生成手机号
 def create_phone():
@@ -38,7 +45,7 @@ sleep(3.0)
 url = "http://wx.xiaoxiang56.com"
 
 # 登录经纪人
-touch(Template(r"tpl1554191030281.png", record_pos=(-0.344, -0.449), resolution=(1080, 1920)))
+touch(Template(r"tpl1.png", rgb=True, target_pos=6, record_pos=(-0.344, -0.449), resolution=(1080, 1920)))
 touch(Template(r"tpl1554192183841.png", record_pos=(0.312, 0.282), resolution=(1080, 1920)))
 touch(Template(r"tpl1554174125976.png", rgb=True, target_pos=2, resolution=(1080, 1920)))
 # target_pos 点击点
@@ -72,6 +79,11 @@ touch(Template(r"tpl1554181308942.png", record_pos=(-0.159, -0.417), resolution=
 touch(Template(r"tpl1554181318237.png", record_pos=(0.313, 0.683), resolution=(1080.0, 1920.0)))
 touch(Template(r"tpl1554181324614.png", record_pos=(0.001, 0.676), resolution=(1080.0, 1920.0)))
 touch(Template(r"tpl1554181330832.png", record_pos=(0.003, 0.679), resolution=(1080.0, 1920.0)))
+
+
+
+
+
 
 
 

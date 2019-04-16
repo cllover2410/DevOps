@@ -1,14 +1,12 @@
 from locust import HttpLocust, TaskSet, task 
 
 
-
-
 # Web性能测试 
 class UserBehavior(TaskSet): 
  
     '''
         UserBehavior类继承TaskSet类，用于描述用户行为。
-        baidu_page()方法表示一个用户行为，访问百度首页。
+        baidu_page()方法表示一个用户行为，访问首页。
         使用@task装饰该方法为一个事务。
         client.get()用于指定请求的路径“/”，因为是首页，所以指定为根路径
     '''
@@ -51,8 +49,8 @@ class WebsiteUser(HttpLocust):
         max_wait：　执行事务之间用户等待时间的上界（单位：毫秒）。
     '''
     task_set = UserBehavior 
-    min_wait = 3000 
-    max_wait = 6000 
+    min_wait = 3000  # 3秒
+    max_wait = 6000  # 6秒
 
 
 # 启动命令 ：locust -f 脚本名 --host=https://www.baidu.com 
