@@ -71,85 +71,77 @@ pymysql.install_as_MySQLdb()
     ```sh
     python3 manage.py shell
     ```
+    >注意点: 对orm的操作分为静态函数和非静态函数两种。静态是指在内存中只有一份内容存在,调用的时候使用 类名. 的方式。如果修改了那么所有使用的人都会受影响。
 
-    >注意点: 对orm的操作分为静态函数和非静态函数两种.静态是指在内存中只有一份内容存在,调用的时候使用 类名. 的方式.如果修改了那么所有使用的人都会受影响.
-
-2. 在命令行中导入对应的映射类
+2. 在命令行中导入对应的映射类：
     ```python
     from 应用.models import 类名
     from teacher.models import Teacher
     ```
 
-3. 使用 objects 属性操作数据库. objects 是 模型中实际和数据库进行交互的 Manager 类的实例化对象.
+3. 使用objects属性操作数据库。objects是模型中实际和数据库进行交互的 Manager 类的实例化对象。
 
-4. 查询命令
+4. 查询命令：
 	- `类名.objects.all()` 查询数据库表中的所有内容. 返回的结果是一个QuerySet类型,实际上是类列表中装这个一个一个数据对象.
-	- 类名.objects.filter(条件)
-```
+	- `类名.objects.filter(条件)`
+    ```python
+    from 应用名.models import 类名
+    from myapp.models import Student
+
+    #查询Student表中的所有数据,得到的是一个QuerySet类型
+    Student.objects.all()
+
+    #如果要取出所有QuerySet类型中的所有数据对象,需要遍历取出所有的对象,再用对象.属性来查看值
+
+    s = Student.object.all()
+    for each in s:
+	    print(each.name , each.age , each.address , each.phone)
+
+    # 如果要进行过滤筛选,使用filter()方法
+    Student.objects.filter(age=18)
+    ```
+# 添加数据
+1. `python3 manage.py shell` # 命令行中添加数据
+2. `对象 = 类()`   # 使用类实例化对象
+3. `对象.属性 = 值`  # 给对应的对象的属性赋值
+4. `对象.save()`  # 必须要执行保存操作,否则数据没有进入数据库
+
+```python
 # from 应用名.models import 类名
 from myapp.models import Student
-```
 
-> 查询Student表中的所有数据,得到的是一个QuerySet类型
-`Student.objects.all()`
+# 实例化对象
+s = Student()
 
-
-> 如果要取出所有QuerySet类型中的所有数据对象,需要遍历取出所有的对象,再用对象.属性来查看值
-```
-s = Student.object.all()
-for each in s:
-	print(each.name , each.age , each.address , each.phone)
-```
-
->如果要进行过滤筛选,使用filter()方法
-`Student.objects.filter(age=18)`
-
-### 2. 添加数据
-```
-python3 manage.py shell #命令行中添加数据
-对象 = 类()   # 使用类实例化对象
-对象.属性 = 值  # 给对应的对象的属性赋值
-对象.save()  # 必须要执行保存操作,否则数据没有进入数据库
-```
-
-#### from 应用名.models import 类名
-`from myapp.models import Student`
-
-#### 实例化对象
-`s = Student()`
-
-#### 给对象的属性赋值
-```
+# 给对象的属性赋值
 s.name = '张三'
 s.address = '云南昭通'
 s.phone = '13377886678'
 s.age = 20
+
+# 保存数据
+s.save()
 ```
 
-#### 保存数据
-`s.save()`
+# 常见查找方法
 
-
-- 常见查找方法
-
-1. 通用查找格式: 属性名 _ _ (用下面的内容)  =值
-
-- gt : 大于
-- gte : 大于等于
-- lt : 小于
-- lte : 小于等于
-- range: 范围
-- year : 年份
-- isnull : 是否为空
+1. 通用查找格式: `Student.objects.filter(age=值)`
+    - gt : 大于
+    - gte : 大于等于
+    - lt : 小于
+    - lte : 小于等于
+    - range: 范围
+    - year : 年份
+    - isnull : 是否为空
 
 2. 查找等于指定值的格式: 属性名 = 值
 3. 模糊查找:  属性名 _ _ (使用下面的内容) = 值
 
-* exact : 精确等于
-* iexact: 不区分大小写
-* contains: 包含
-* startwith: 以..开头
-* endwith: 以…结尾 
+    * exact : 精确等于
+    * iexact: 不区分大小写
+    * contains: 包含
+    * startwith: 以..开头
+    * endwith: 以…结尾 
 
 # 数据库表关系
 - 多表联查：利用多个表联合查找某一项信息或者多项信息
