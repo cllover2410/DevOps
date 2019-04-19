@@ -48,16 +48,14 @@ pymysql.install_as_MySQLdb()
 
 ## 数据库的迁移
 1. 在命令行中,生成数据迁移的语句(生成sql语句)
-`python3 manage.py makemigrations`
+    ```sh
+    python3 manage.py makemigrations
+    ```
             
 2. 在命令行中,输入数据迁移的指令
     ```sh
     python3 manage.py migrate
-    ```
-
-    > 如果迁移中出现没有变化或者报错,可以尝试强制迁移
-    
-    ```sh
+    # 如果迁移中出现没有变化或者报错,可以尝试强制迁移
     # 强制迁移命令
     python3 manage.py makemigrations 应用名
     python3 manage.py migrate 应用名
@@ -100,52 +98,59 @@ pymysql.install_as_MySQLdb()
     # 如果要进行过滤筛选,使用filter()方法
     Student.objects.filter(age=18)
     ```
-# 添加数据
+### 添加数据
 1. `python3 manage.py shell` # 命令行中添加数据
 2. `对象 = 类()`   # 使用类实例化对象
 3. `对象.属性 = 值`  # 给对应的对象的属性赋值
 4. `对象.save()`  # 必须要执行保存操作,否则数据没有进入数据库
 
-```python
-# from 应用名.models import 类名
-from myapp.models import Student
+    ```python
+    # from 应用名.models import 类名
+    from myapp.models import Student
 
-# 实例化对象
-s = Student()
+    # 实例化对象
+    s = Student()
 
-# 给对象的属性赋值
-s.name = '张三'
-s.address = '云南昭通'
-s.phone = '13377886678'
-s.age = 20
+    # 给对象的属性赋值
+    s.name = '张三'
+    s.address = '云南昭通'
+    s.phone = '13377886678'
+    s.age = 20
 
-# 保存数据
-s.save()
-```
+    # 保存数据
+    s.save()
+    ```
 
-# 常见查找方法
-
-1. 通用查找格式: `Student.objects.filter(age__gt=值)`
-    - gt : 大于
-    - gte : 大于等于
-    - lt : 小于
-    - lte : 小于等于
-    - range: 范围
-    - year : 年份
-    - isnull : 是否为空
-
-2. 查找等于指定值的格式: `Student.objects.filter(age__gt=值)`
-3. 特定查找: `Student.objects.filter(age__exact=值)`
-    * exact : 精确等于
-    * iexact: 不区分大小写
-    * contains: 包含
-    * startwith: 以..开头
-    * endwith: 以…结尾 
+### 常见查找方法
+1. 通用查找格式: 
+    ```python
+    Student.objects.filter(age__gt=值)    
+    # gt : 大于
+    # gte : 大于等于
+    # lt : 小于
+    # lte : 小于等于
+    # range: 范围
+    # year : 年份
+    # isnull : 是否为空
+    ```
+2. 查找等于指定值的格式: 
+    ```python
+    Student.objects.filter(age__gt=值)
+    ```
+3. 特定查找: 
+    ```python
+    Student.objects.filter(age__exact=值)
+    # exact : 精确等于
+    # iexact: 不区分大小写
+    # contains: 包含
+    # startwith: 以..开头
+    # endwith: 以…结尾 
+    ```
 
 # 数据库表关系
 - 多表联查：利用多个表联合查找某一项信息或者多项信息
 
-## 1:1 OneToOne
+### 1:1 OneToOne
 - 建立关系：在模型任意一边即可，使用OneToOneField()
     ```python
     # models.py
@@ -193,7 +198,7 @@ s.save()
     - 无论对子表还是对母表的修改
 - delete： 直接使用delete还是删除                   
     
-## 1:N OneToMany
+### 1:N OneToMany
 - 一个表格的一个数据项/对象等，可以有很多个另一个表格的数据项
 - 比如：一个学校可以有很多个老师，但一个老师只能在一个学校里上班
 - 使用上
@@ -212,7 +217,7 @@ s.save()
         - 有学校，我想查下这个学校所有老师，则系统自动在老师模型名称的小写下直接加下划线set，
                 用来表示
             -
-## N:N ManyToMany
+### N:N ManyToMany
 - 表示任意一个表的数据可以拥有对方表格多项数据，反之亦然
 - 比如典型例子就是老师和学生的关系
 - 使用上，在任意一方，使用ManyToMany定义，只需要定义一边
