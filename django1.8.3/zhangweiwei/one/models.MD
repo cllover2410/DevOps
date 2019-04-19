@@ -16,7 +16,7 @@
     - 切换数据库在settings中进行设置 
 
 >django 连接 mysql
-```
+```python
 DATABASES = [
     'default' = {
         'ENGINE' : 'django.db.backends.mysql',
@@ -26,7 +26,7 @@ DATABASES = [
         'PORT': '3306',
         }]
 
-- 需要在项目文件下的__init__文件中导入pymysql包,在主项目的__init__文件中
+# 需要在项目文件下的__init__文件中导入pymysql包,在主项目的__init__文件中
 import pymysql
 pymysql.install_as_MySQLdb()
 ```
@@ -38,12 +38,12 @@ pymysql.install_as_MySQLdb()
     - class中的所有属性对应表格中的字段
     - 字段的类型都必须使用 modles.xxx 不能使用python中的类型
 - 字段常用参数
-    1. max_length : 规定数值的最大长度
-    2. blank : 是否允许字段为空,默认不允许
-    3. null : 在DB中控制是否保存为null, 默认为false
-    4. default : 默认值
-    5. unique : 唯一
-    6. verbose_name : 假名
+    1. `max_length` : 规定数值的最大长度
+    2. `blank` : 是否允许字段为空,默认不允许
+    3. `null` : 在DB中控制是否保存为null, 默认为false
+    4. `default` : 默认值
+    5. `unique` : 唯一
+    6. `verbose_name` : 假名
 - 所有的类型都是以Field()结尾   
 
 ## 数据库的迁移
