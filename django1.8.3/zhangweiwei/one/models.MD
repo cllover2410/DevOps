@@ -155,14 +155,18 @@ pymysql.install_as_MySQLdb()
     ```python
     # models.py
     from django.db import models
-    
+
     class School(models.Model):
         school_id = models.IntegerField()
         school_name = models.CharField(max_length=20)
-
         def __str__(self):
             return self.school_name
 
+    class Manager(models.Model):
+        Manager_id = models.IntegerField()
+        Manager_name = models.CharField(max_length=20)
+        def __str__(self):
+            return self.Manager_name
     ```
 - add:  
     >添加没有关系的一边，直接实例化保存就可以
@@ -173,35 +177,42 @@ pymysql.install_as_MySQLdb()
     s.save()
     ```
 
-    >添加有关系的一边，使用create方法,或者使用实例化然后save
+    >添加有关系的一边，使用create方法或者使用实例化然后save
     ```python
     # 方法1
     m = Manager()
     m.manager_id = 10
     m.manager_name = "dana"
-    m.my_school = s
+    m.my_school = s # 建立关系
     m.save()
             
-    # 方法2
-    m = Manager.objects.create(manager_id=20, manager_name="erna", my_school=ss[0])
-    ‵‵‵
+    # 方法2 推荐
+    m = Manager.objects.create(manager_id=20, manager_name="erna", my_school=s)
+    ```
+
 - query:
-    - 有子表查母表： 由子表的属性直接提取信息
-    - 由母表查子表：使用双下划线 
+    - 有子表查母表：*由子表的属性直接提取信息*
+    ```python
+    Manager.object.get(manager_name="dana").my_school.school_name
+    ```
+    - 由母表查子表：使用*双下划线* 
     ```python
     s = School.objects.get(manager__manager_name="dana")
     s<School: nanjingtulingxueyuan>
     ```
+
 - change:
-    - 单个修改使用save     
-    - 批量修改使用update
+    - 单个修改使用*save()*     
+    - 批量修改使用*update()*
     - 无论对子表还是对母表的修改
-- delete： 直接使用delete还是删除                   
+- delete： 直接使用*delete*还是删除                   
     
 ### 1:N OneToMany
 - 一个表格的一个数据项/对象等，可以有很多个另一个表格的数据项
 - 比如：一个学校可以有很多个老师，但一个老师只能在一个学校里上班
 - 使用上
+```
+```
     - 使用ForengnKey
     - 在多的那一边，比如上边的例子就是在Teacher的表格里进行定义
         

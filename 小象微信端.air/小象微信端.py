@@ -2,19 +2,11 @@
 __author__ = "zhangweiwei"
 
 
-
-#auto_setup(__file__)
-
 import random
-from airtest.core.api import *
-from poco.drivers.android.uiautomation import AndroidUiautomationPoco # 连接安卓 
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from airtest_selenium.proxy import WebChrome
 
-"""
-poco = AndroidUiautomationPoco()
-poco.device.wake() # 唤醒设备
-"""
- 
-#connect_device("android:127.0.0.1:7555") # 选中设备
 
 # 生成手机号
 def create_phone():
@@ -34,51 +26,36 @@ def create_phone():
     return "1{}{}{}".format(second, third, suffix)
 phone = create_phone()
 
-sleep(3.0)
 
 
-url = "http://wx.xiaoxiang56.com"
+url = ["http://wx.xiaoxiang56.com", "http://www.xiaoxiang56.com"]
 
-# 登录经纪人
-from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
-from airtest_selenium.proxy import WebChrome
-driver = WebChrome()
-driver.implicitly_wait(20)
+class Pc():
+    """
+    生成浏览器实例
+    """
+    def __init__(self):
+        self.driver = WebChrome()
+        self.driver.implicitly_wait(20)
+        self.driver.get(url[1])
+        self.driver.maximize_window()
+        self.driver.find_element_by_xpath("//a[@href='/auth/login']").click()
+        self.driver.find_element_by_xpath("//input[@type='text']").send_keys("18610503832")
+        self.driver.find_element_by_xpath("//input[@type='password']").send_keys("111111")
+        self.driver.find_element_by_xpath("//*[@id=\"app\"]/div/div/div[2]/div[2]/form/div[4]/div/button/span").click()
+        self.driver.refresh()
+        
+        driver.find_element_by_xpath("//*[@id=\"app\"]/section/main/div/div[2]/div/div[2]/div/button/span").click()
+driver.find_element_by_xpath("//*[@id=\"app\"]/section/main/div/div[2]/div/div[2]/div/button/span").click()
+driver.find_element_by_xpath("//*[@id=\"app\"]/section/main/div/div[2]/div/div[2]/form/div/div/div[2]/div/div/div/div/input").click()
+driver.find_element_by_xpath("/html/body/div[3]/div/div/ul/li[2]/span").click()
+driver.find_element_by_xpath("//*[@id=\"app\"]/section/main/div/div[2]/div/div[2]/form/div/div/div[2]/div[3]/div/div/input").click()
+driver.find_element_by_xpath("/html/body/div[4]/div[2]/button/span").click()
+driver.find_element_by_xpath("//input[@placeholder='请输入重量']").click()
+driver.find_element_by_xpath("//input[@placeholder='请输入价格']").click()
+driver.find_element_by_xpath("//*[@id=\"app\"]/section/main/div/div[2]/div/div[2]/form/div[5]/div/div/button").click()
+driver.find_element_by_xpath("//*[@id=\"app\"]/section/main/div/div[2]/div/div[3]/div/div[2]/div[2]/div[3]/table/tbody/tr/td/div/label/span/span").click()
+driver.find_element_by_xpath("//*[@id=\"app\"]/section/main/div/div[2]/div/div[3]/div/div[3]/span/button/span").click()
 
-driver.get("http://www.xiaoxiang56.com/static/h5/default.html")
-driver.find_element_by_xpath("//a[@href='/auth/login']").click()
-driver.find_element_by_xpath("//input[@type='text']").send_keys("18610503832")
-driver.find_element_by_xpath("//input[@type='password']").send_keys("111111")
-
-#text(123456)
-driver.find_element_by_xpath("//*[@id=\"app\"]/div/div/div[2]/div[2]/form/div[4]/div/button/span").click()
-driver.find_element_by_xpath("//*[@id=\"app\"]/section/main/div/div/aside/ul/li/ul/li[3]").click()
-driver.find_element_by_xpath("//*[@id=\"app\"]/section/main/div/div[2]/div/div[2]/div/div/button").click()
-driver.find_element_by_xpath("//textarea[@placeholder='详细地址']").send_keys("123456")
-driver.find_element_by_xpath("//input[@placeholder='请输入姓名']").send_keys("地址")
-driver.find_element_by_xpath("//input[@placeholder='请输入手机号']").send_keys(phone)
-
-touch(Template(r"tpl1555574504249.png", record_pos=(3.395, 1.81), resolution=(381, 723)))
-touch(Template(r"tpl1555574508162.png", record_pos=(1.954, 1.377), resolution=(381, 723)))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        
+主账号 = Pc()
