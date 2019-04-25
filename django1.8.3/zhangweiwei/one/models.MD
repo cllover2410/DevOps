@@ -167,6 +167,7 @@ pymysql.install_as_MySQLdb()
         Manager_name = models.CharField(max_length=20)
         def __str__(self):
             return self.Manager_name
+        my__school = models.OneToOneField(School) # 建立关系
     ```
 - add:  
     >添加没有关系的一边，直接实例化保存就可以
@@ -193,7 +194,7 @@ pymysql.install_as_MySQLdb()
 - query:
     - 有子表查母表：*由子表的属性直接提取信息*
     ```python
-    Manager.object.get(manager_name="dana").my_school.school_name
+    Manager.objects.get(manager_name="dana").my_school.school_name
     ```
     - 由母表查子表：使用*双下划线* 
     ```python
