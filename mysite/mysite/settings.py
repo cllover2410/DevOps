@@ -31,6 +31,7 @@ ALLOWED_HOSTS = ["*"]
 # Application definition
 
 INSTALLED_APPS = (
+    'simpleui',
     'django.contrib.admin', # 管理后台
     'django.contrib.auth', # 使用者认证
     'django.contrib.contenttypes',
@@ -103,3 +104,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
+
